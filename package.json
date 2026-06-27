@@ -1,0 +1,9 @@
+{
+  "name": "psycho-test-dmrc",
+  "version": "1.0.0",
+  "description": "DMRC/LMRC/NMRC Machine Psycho Test - Signal Color Identification",
+  "scripts": {
+    "dev": "npx -y http-server . -p 3000 -o",
+    "start": "npx -y http-server . -p 3000 -o"
+  }
+}

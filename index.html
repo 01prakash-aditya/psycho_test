@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="DMRC/LMRC/NMRC Machine Psycho Test - Signal Color Identification Test for Metro Rail Corporation Recruitment">
+    <title>DMRC/LMRC/NMRC Machine Psycho Test</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- LANDING PAGE -->
+    <div id="landing-page" class="page active">
+        <div class="landing-container">
+            <div class="landing-logo-section">
+                <div class="metro-logo">
+                    <svg viewBox="0 0 80 80" width="80" height="80">
+                        <circle cx="40" cy="40" r="38" fill="#0052A5" stroke="#003d7a" stroke-width="2"/>
+                        <path d="M20 50 L30 25 L40 42 L50 25 L60 50" stroke="white" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                        <rect x="18" y="50" width="44" height="4" rx="2" fill="white"/>
+                    </svg>
+                </div>
+                <h1 class="landing-title">DMRC/LMRC/NMRC Machine Test</h1>
+                <p class="landing-subtitle">Psycho Test — Signal Color Identification</p>
+            </div>
+
+            <div class="landing-card">
+                <div class="info-section">
+                    <h2>Test Instructions</h2>
+                    <div class="instruction-grid">
+                        <div class="instruction-item">
+                            <div class="instruction-icon">⏱️</div>
+                            <div>
+                                <strong>Duration:</strong> 60 seconds
+                            </div>
+                        </div>
+                        <div class="instruction-item">
+                            <div class="instruction-icon">🚦</div>
+                            <div>
+                                <strong>Task:</strong> Identify signal colors (Red, Yellow, Green)
+                            </div>
+                        </div>
+                        <div class="instruction-item">
+                            <div class="instruction-icon">⌨️</div>
+                            <div>
+                                <strong>Controls:</strong>
+                                <ul class="key-list">
+                                    <li><kbd>L</kbd> — Next Picture</li>
+                                    <li><kbd>R</kbd> — Answer Red</li>
+                                    <li><kbd>Y</kbd> — Answer Yellow</li>
+                                    <li><kbd>G</kbd> — Answer Green</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="instruction-item">
+                            <div class="instruction-icon">📊</div>
+                            <div>
+                                <strong>Report:</strong> Detailed results after test completion
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="signal-preview">
+                    <div class="preview-signal red-glow"></div>
+                    <div class="preview-signal yellow-glow"></div>
+                    <div class="preview-signal green-glow"></div>
+                </div>
+
+                <button id="start-test-btn" class="start-btn">
+                    <span>Start Test</span>
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TEST PAGE -->
+    <div id="test-page" class="page">
+        <!-- Header Bar -->
+        <header class="test-header">
+            <div class="header-left">
+                <div class="header-logo">
+                    <svg viewBox="0 0 40 40" width="36" height="36">
+                        <circle cx="20" cy="20" r="19" fill="#0052A5" stroke="#003d7a" stroke-width="1"/>
+                        <path d="M10 26 L15 13 L20 22 L25 13 L30 26" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                        <rect x="9" y="26" width="22" height="2.5" rx="1" fill="white"/>
+                    </svg>
+                </div>
+                <h1 class="header-title">DMRC/LMRC/NMRC Machine Test</h1>
+            </div>
+            <div class="header-center">
+                <div class="timer-box" id="timer-box">
+                    <span>Time Left </span>
+                    <span id="timer-display">00:01:00</span>
+                </div>
+            </div>
+            <div class="header-right">
+                <button id="fullscreen-btn" class="btn-fullscreen">Switch Fullscreen</button>
+                <button id="exit-btn" class="btn-exit">Exit</button>
+            </div>
+        </header>
+
+        <!-- Instructions Panel -->
+        <div class="instructions-panel" id="instructions-panel">
+            <ul>
+                <li><span class="dot blue"></span> Press <strong>L</strong> for next Picture</li>
+                <li><span class="dot red"></span> Press <strong>R</strong> for Answering Red</li>
+                <li><span class="dot yellow"></span> Press <strong>Y</strong> for Answering Yellow</li>
+                <li><span class="dot green"></span> Press <strong>G</strong> for Answering Green</li>
+            </ul>
+        </div>
+
+        <!-- Signal Display Area -->
+        <div class="signal-display-area" id="signal-display-area">
+            <div class="signal-container" id="signal-container">
+                <img id="signal-image" src="" alt="Traffic Signal" class="signal-image" style="display:none;">
+                <div class="status-text" id="status-text">Press L to see the first signal</div>
+            </div>
+            <div class="feedback-indicator" id="feedback-indicator"></div>
+        </div>
+
+        <!-- Answer Indicator (bottom) -->
+        <div class="answer-bar" id="answer-bar">
+            <span id="answer-text"></span>
+        </div>
+    </div>
+
+    <!-- RESULTS PAGE -->
+    <div id="results-page" class="page">
+        <header class="test-header">
+            <div class="header-left">
+                <div class="header-logo">
+                    <svg viewBox="0 0 40 40" width="36" height="36">
+                        <circle cx="20" cy="20" r="19" fill="#0052A5" stroke="#003d7a" stroke-width="1"/>
+                        <path d="M10 26 L15 13 L20 22 L25 13 L30 26" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                        <rect x="9" y="26" width="22" height="2.5" rx="1" fill="white"/>
+                    </svg>
+                </div>
+                <h1 class="header-title">DMRC/LMRC/NMRC Machine Test</h1>
+            </div>
+            <div class="header-right">
+                <button id="fullscreen-btn-results" class="btn-fullscreen">Switch Fullscreen</button>
+                <button id="exit-btn-results" class="btn-exit">Exit</button>
+            </div>
+        </header>
+
+        <div class="results-container">
+            <h2 class="results-title">Your test has been completed</h2>
+            <div class="result-status" id="result-status">
+                <span>Test Result: </span>
+                <strong id="result-label">Passed</strong>
+            </div>
+
+            <div class="results-stats" id="results-stats">
+                <!-- Stats cards populated by JS -->
+            </div>
+
+            <button id="reset-btn" class="reset-btn">Reset Test</button>
+
+            <div class="results-table-wrapper">
+                <table class="results-table" id="results-table">
+                    <thead>
+                        <tr>
+                            <th>Index</th>
+                            <th>Your Input</th>
+                            <th>Required</th>
+                            <th>Result</th>
+                            <th>Diffusion Time(Secs)</th>
+                            <th>Comeback Time</th>
+                        </tr>
+                    </thead>
+                    <tbody id="results-tbody">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
