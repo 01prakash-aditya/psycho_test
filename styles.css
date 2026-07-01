@@ -415,12 +415,7 @@ kbd {
     height: auto;
     object-fit: contain;
     border-radius: 50%;
-    transition: opacity 0.15s ease;
     filter: drop-shadow(0 8px 24px rgba(0,0,0,0.15));
-}
-
-.signal-image.fade {
-    opacity: 0;
 }
 
 .status-text {

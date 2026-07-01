@@ -217,21 +217,37 @@
 
         const signal = testState.signalQueue[testState.queueIndex];
         testState.currentSignal = signal;
-        testState.signalShownAt = now;
         testState.waitingForAnswer = true;
         testState.answered = false;
         testState.signalVisible = true;
         testState.lLocked = true;   // Lock L until answer or auto-change
         testState.queueIndex++;
 
-        // Animate signal change
-        elements.signalImage.classList.add('fade');
-        setTimeout(() => {
+        // INSTANTLY hide old image to prevent flash
+        elements.signalImage.style.visibility = 'hidden';
+        elements.signalImage.style.display = 'block';
+
+        // Check if this image is already cached and ready
+        const cachedImg = imageCache[signal.imagePath];
+        if (cachedImg && cachedImg.complete && cachedImg.naturalWidth > 0) {
+            // Image is preloaded — swap and show immediately
+            elements.signalImage.src = cachedImg.src;
+            elements.signalImage.alt = `${COLOR_NAMES[signal.color]} Signal`;
+            elements.signalImage.style.visibility = 'visible';
+            testState.signalShownAt = performance.now();
+        } else {
+            // Fallback: load and reveal on completion
+            elements.signalImage.onload = function () {
+                elements.signalImage.style.visibility = 'visible';
+                testState.signalShownAt = performance.now();
+                elements.signalImage.onload = null;
+            };
             elements.signalImage.src = signal.imagePath;
             elements.signalImage.alt = `${COLOR_NAMES[signal.color]} Signal`;
-            elements.signalImage.classList.remove('fade');
-            elements.signalImage.style.display = 'block';
-        }, 80);
+        }
+
+        // Set initial signalShownAt (will be corrected on actual display)
+        testState.signalShownAt = now;
 
         // Clear feedback
         hideFeedback();
@@ -527,11 +543,15 @@
         preloadImages();
     }
 
+    // Image cache — stores fully loaded Image objects for instant swap
+    const imageCache = {};
+
     function preloadImages() {
         Object.values(SIGNAL_IMAGES).forEach(paths => {
             paths.forEach(path => {
                 const img = new Image();
                 img.src = path;
+                imageCache[path] = img;
             });
         });
     }
