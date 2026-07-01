@@ -3,15 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="DMRC/LMRC/NMRC Machine Psycho Test - Signal Color Identification Test for Metro Rail Corporation Recruitment">
-    <title>DMRC/LMRC/NMRC Machine Psycho Test</title>
+    <meta name="description" content="DMRC/LMRC/NMRC Machine Reaction Test & Aptitude Test - Signal Color Identification and Calculation Test for Metro Rail Corporation Recruitment">
+    <title>DMRC/LMRC/NMRC Machine Test</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- LANDING PAGE -->
+    <!-- ============================================= -->
+    <!-- LANDING PAGE — Test Selection                 -->
+    <!-- ============================================= -->
     <div id="landing-page" class="page active">
         <div class="landing-container">
             <div class="landing-logo-section">
@@ -23,65 +25,71 @@
                     </svg>
                 </div>
                 <h1 class="landing-title">DMRC/LMRC/NMRC Machine Test</h1>
-                <p class="landing-subtitle">Psycho Test — Signal Color Identification</p>
+                <p class="landing-subtitle">Reaction Test & Aptitude Test — Practice Platform</p>
             </div>
 
-            <div class="landing-card">
-                <div class="info-section">
-                    <h2>Test Instructions</h2>
-                    <div class="instruction-grid">
-                        <div class="instruction-item">
-                            <div class="instruction-icon">⏱️</div>
-                            <div>
-                                <strong>Duration:</strong> 60 seconds
-                            </div>
-                        </div>
-                        <div class="instruction-item">
-                            <div class="instruction-icon">🚦</div>
-                            <div>
-                                <strong>Task:</strong> Identify signal colors (Red, Yellow, Green)
-                            </div>
-                        </div>
-                        <div class="instruction-item">
-                            <div class="instruction-icon">⌨️</div>
-                            <div>
-                                <strong>Controls:</strong>
-                                <ul class="key-list">
-                                    <li><kbd>L</kbd> — Next Picture</li>
-                                    <li><kbd>R</kbd> — Answer Red</li>
-                                    <li><kbd>Y</kbd> — Answer Yellow</li>
-                                    <li><kbd>G</kbd> — Answer Green</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="instruction-item">
-                            <div class="instruction-icon">📊</div>
-                            <div>
-                                <strong>Report:</strong> Detailed results after test completion
-                            </div>
+            <!-- Test Selection Cards -->
+            <div class="test-selection-grid">
+                <!-- Psycho Test Card -->
+                <div class="test-card">
+                    <div class="test-card-icon">
+                        <div class="signal-preview-mini">
+                            <div class="preview-signal-sm red-glow"></div>
+                            <div class="preview-signal-sm yellow-glow"></div>
+                            <div class="preview-signal-sm green-glow"></div>
                         </div>
                     </div>
+                    <h2 class="test-card-title">🚦 Reaction Test</h2>
+                    <p class="test-card-desc">Signal Color Identification</p>
+                    <div class="test-card-details">
+                        <span class="detail-badge">⏱ 60 seconds</span>
+                        <span class="detail-badge">🎯 R / Y / G keys</span>
+                    </div>
+                    <ul class="test-card-info">
+                        <li>Identify traffic signal colors</li>
+                        <li>Press <kbd>L</kbd> for next, <kbd>R</kbd>/<kbd>Y</kbd>/<kbd>G</kbd> to answer</li>
+                        <li>Tests reaction time & color perception</li>
+                    </ul>
+                    <button id="start-test-btn" class="start-btn">
+                        <span>Start Reaction Test</span>
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                    </button>
                 </div>
 
-                <div class="signal-preview">
-                    <div class="preview-signal red-glow"></div>
-                    <div class="preview-signal yellow-glow"></div>
-                    <div class="preview-signal green-glow"></div>
+                <!-- Aptitude Test Card -->
+                <div class="test-card">
+                    <div class="test-card-icon">
+                        <div class="math-preview">
+                            <span class="math-symbol">+</span>
+                            <span class="math-symbol">−</span>
+                            <span class="math-symbol">×</span>
+                        </div>
+                    </div>
+                    <h2 class="test-card-title">🧮 Aptitude Test</h2>
+                    <p class="test-card-desc">Calculation & Mental Math</p>
+                    <div class="test-card-details">
+                        <span class="detail-badge">⏱ 15 minutes</span>
+                        <span class="detail-badge">📝 112 questions</span>
+                    </div>
+                    <ul class="test-card-info">
+                        <li>40 Addition (2-digit + 2-digit)</li>
+                        <li>20 Multiplication (2-digit × 1-digit)</li>
+                        <li>40 Subtraction (no borrowing)</li>
+                        <li>12 Triple Addition (three 2-digit sums)</li>
+                    </ul>
+                    <button id="start-aptitude-btn" class="start-btn aptitude-btn">
+                        <span>Start Aptitude Test</span>
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                    </button>
                 </div>
-
-                <button id="start-test-btn" class="start-btn">
-                    <span>Start Test</span>
-                    <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
-                        <polygon points="5 3 19 12 5 21 5 3"></polygon>
-                    </svg>
-                </button>
             </div>
         </div>
     </div>
 
-    <!-- TEST PAGE -->
+    <!-- ============================================= -->
+    <!-- PSYCHO TEST PAGE                              -->
+    <!-- ============================================= -->
     <div id="test-page" class="page">
-        <!-- Header Bar -->
         <header class="test-header">
             <div class="header-left">
                 <div class="header-logo">
@@ -105,7 +113,6 @@
             </div>
         </header>
 
-        <!-- Instructions Panel -->
         <div class="instructions-panel" id="instructions-panel">
             <ul>
                 <li><span class="dot blue"></span> Press <strong>L</strong> for next Picture</li>
@@ -115,7 +122,6 @@
             </ul>
         </div>
 
-        <!-- Signal Display Area -->
         <div class="signal-display-area" id="signal-display-area">
             <div class="signal-container" id="signal-container">
                 <img id="signal-image" src="" alt="Traffic Signal" class="signal-image" style="display:none;">
@@ -124,13 +130,14 @@
             <div class="feedback-indicator" id="feedback-indicator"></div>
         </div>
 
-        <!-- Answer Indicator (bottom) -->
         <div class="answer-bar" id="answer-bar">
             <span id="answer-text"></span>
         </div>
     </div>
 
-    <!-- RESULTS PAGE -->
+    <!-- ============================================= -->
+    <!-- PSYCHO TEST RESULTS PAGE                      -->
+    <!-- ============================================= -->
     <div id="results-page" class="page">
         <header class="test-header">
             <div class="header-left">
@@ -155,13 +162,8 @@
                 <span>Test Result: </span>
                 <strong id="result-label">Passed</strong>
             </div>
-
-            <div class="results-stats" id="results-stats">
-                <!-- Stats cards populated by JS -->
-            </div>
-
+            <div class="results-stats" id="results-stats"></div>
             <button id="reset-btn" class="reset-btn">Reset Test</button>
-
             <div class="results-table-wrapper">
                 <table class="results-table" id="results-table">
                     <thead>
@@ -174,13 +176,132 @@
                             <th>Comeback Time</th>
                         </tr>
                     </thead>
-                    <tbody id="results-tbody">
-                    </tbody>
+                    <tbody id="results-tbody"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================= -->
+    <!-- APTITUDE TEST PAGE                            -->
+    <!-- ============================================= -->
+    <div id="aptitude-page" class="page">
+        <header class="test-header">
+            <div class="header-left">
+                <div class="header-logo">
+                    <svg viewBox="0 0 40 40" width="36" height="36">
+                        <circle cx="20" cy="20" r="19" fill="#0052A5" stroke="#003d7a" stroke-width="1"/>
+                        <path d="M10 26 L15 13 L20 22 L25 13 L30 26" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                        <rect x="9" y="26" width="22" height="2.5" rx="1" fill="white"/>
+                    </svg>
+                </div>
+                <h1 class="header-title">DMRC/LMRC/NMRC Aptitude Test</h1>
+            </div>
+            <div class="header-center">
+                <div class="timer-box" id="apt-timer-box">
+                    <span>Time Left </span>
+                    <span id="apt-timer-display">00:15:00</span>
+                </div>
+            </div>
+            <div class="header-right">
+                <span class="question-counter" id="apt-question-number">Question 1 / 112</span>
+                <button id="apt-fullscreen-btn" class="btn-fullscreen">Switch Fullscreen</button>
+                <button id="apt-exit-btn" class="btn-exit">Exit</button>
+            </div>
+        </header>
+
+        <!-- Aptitude Instructions Panel -->
+        <div class="instructions-panel" id="apt-instructions-panel">
+            <ul>
+                <li><span class="dot blue"></span> Press <strong>1</strong> for Option 1</li>
+                <li><span class="dot red"></span> Press <strong>2</strong> for Option 2</li>
+                <li><span class="dot yellow"></span> Press <strong>3</strong> for Option 3</li>
+                <li><span class="dot green"></span> Press <strong>4</strong> for Option 4</li>
+            </ul>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="apt-progress-wrapper">
+            <div class="apt-progress-bar" id="apt-progress-bar"></div>
+        </div>
+
+        <!-- Question Area -->
+        <div class="apt-question-area">
+            <div class="apt-question-card">
+                <div class="apt-question-text" id="apt-question-text">45 + 32 = ?</div>
+            </div>
+
+            <div class="apt-options-grid">
+                <button class="apt-option" id="apt-option-1" data-option="1">
+                    <span class="apt-option-key">1</span>
+                    <span class="apt-option-value">77</span>
+                </button>
+                <button class="apt-option" id="apt-option-2" data-option="2">
+                    <span class="apt-option-key">2</span>
+                    <span class="apt-option-value">78</span>
+                </button>
+                <button class="apt-option" id="apt-option-3" data-option="3">
+                    <span class="apt-option-key">3</span>
+                    <span class="apt-option-value">76</span>
+                </button>
+                <button class="apt-option" id="apt-option-4" data-option="4">
+                    <span class="apt-option-key">4</span>
+                    <span class="apt-option-value">79</span>
+                </button>
+            </div>
+
+            <div class="apt-feedback" id="apt-feedback"></div>
+        </div>
+    </div>
+
+    <!-- ============================================= -->
+    <!-- APTITUDE TEST RESULTS PAGE                    -->
+    <!-- ============================================= -->
+    <div id="aptitude-results-page" class="page">
+        <header class="test-header">
+            <div class="header-left">
+                <div class="header-logo">
+                    <svg viewBox="0 0 40 40" width="36" height="36">
+                        <circle cx="20" cy="20" r="19" fill="#0052A5" stroke="#003d7a" stroke-width="1"/>
+                        <path d="M10 26 L15 13 L20 22 L25 13 L30 26" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                        <rect x="9" y="26" width="22" height="2.5" rx="1" fill="white"/>
+                    </svg>
+                </div>
+                <h1 class="header-title">DMRC/LMRC/NMRC Aptitude Test — Results</h1>
+            </div>
+            <div class="header-right">
+                <button id="apt-results-fullscreen-btn" class="btn-fullscreen">Switch Fullscreen</button>
+                <button id="apt-results-exit-btn" class="btn-exit">Exit</button>
+            </div>
+        </header>
+
+        <div class="results-container">
+            <h2 class="results-title">Your Aptitude Test has been completed</h2>
+            <div class="result-status">
+                <span>Test Result: </span>
+                <strong id="apt-result-label">Passed</strong>
+            </div>
+            <div class="results-stats" id="apt-results-stats"></div>
+            <button id="apt-reset-btn" class="reset-btn">Reset Test</button>
+            <div class="results-table-wrapper">
+                <table class="results-table apt-results-table">
+                    <thead>
+                        <tr>
+                            <th>Index</th>
+                            <th>Question</th>
+                            <th>Your Answer</th>
+                            <th>Correct Answer</th>
+                            <th>Result</th>
+                            <th>Time Taken(s)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="apt-results-tbody"></tbody>
                 </table>
             </div>
         </div>
     </div>
 
     <script src="app.js"></script>
+    <script src="aptitude.js"></script>
 </body>
 </html>

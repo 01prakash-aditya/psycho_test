@@ -479,6 +479,8 @@
     // ===== KEYBOARD INPUT =====
     function handleKeyDown(e) {
         if (!testState.isRunning) return;
+        // Skip if aptitude test is active — avoid keyboard conflicts
+        if (window._aptitudeTestRunning) return;
 
         // Ignore held-down key repeats entirely
         if (e.repeat) {
