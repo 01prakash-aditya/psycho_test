@@ -93,6 +93,16 @@ html, body {
     animation: pulse-glow 2s ease-in-out infinite;
 }
 
+.metro-logo img {
+    border-radius: 50%;
+    object-fit: contain;
+}
+
+.header-logo img {
+    border-radius: 50%;
+    object-fit: contain;
+}
+
 @keyframes pulse-glow {
     0%, 100% { filter: drop-shadow(0 0 8px rgba(0,82,165,0.3)); }
     50% { filter: drop-shadow(0 0 20px rgba(0,82,165,0.5)); }
