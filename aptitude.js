@@ -31,6 +31,7 @@
   let timerInterval   = null;
   let secondsLeft     = TIME_LIMIT_SECONDS;
   let questionStartTs = 0;    // timestamp when current question was shown
+  let testStartTime   = 0;    // timestamp when test began (for total time)
   let testActive      = false;
 
   /* ──────────────────────────── DOM refs ─────────────────────────── */
@@ -121,24 +122,47 @@
 
   /**
    * Produce an array of 4 unique, positive options that includes
-   * the correct answer.  Wrong options fall within ±[1,15] of correct.
+   * the correct answer.
+   *
+   * KEY DESIGN: At least 2 of the 3 wrong options share the same
+   * units digit as the correct answer, so test-takers can't simply
+   * eliminate choices by checking the last digit.
    */
   function generateOptions(correctAnswer) {
     const options = new Set();
     options.add(correctAnswer);
+    const unitDigit = correctAnswer % 10;
 
+    // --- Phase 1: Generate 2 wrong options with SAME units digit ---
+    // These use multiples of 10 (±10, ±20, ±30...) so units digit stays identical
+    let sameUnitCount = 0;
     let attempts = 0;
-    while (options.size < 4 && attempts < 200) {
-      const offset = randInt(WRONG_OFFSET_MIN, WRONG_OFFSET_MAX) *
-                     (Math.random() < 0.5 ? -1 : 1);
+    while (sameUnitCount < 2 && attempts < 100) {
+      // Pick a multiple of 10 offset: ±10, ±20, ±30
+      const mult = randInt(1, 5) * 10;
+      const sign = Math.random() < 0.5 ? -1 : 1;
+      const wrong = correctAnswer + (mult * sign);
+      if (wrong > 0 && !options.has(wrong)) {
+        options.add(wrong);
+        sameUnitCount++;
+      }
+      attempts++;
+    }
+
+    // --- Phase 2: Fill remaining slot(s) with a different-unit-digit option ---
+    // This makes it so not ALL options share the unit digit (which would be suspicious)
+    attempts = 0;
+    while (options.size < 4 && attempts < 100) {
+      const offset = randInt(1, 15) * (Math.random() < 0.5 ? -1 : 1);
       const wrong = correctAnswer + offset;
-      if (wrong > 0) {
+      // Accept if positive, unique, and has a DIFFERENT units digit
+      if (wrong > 0 && !options.has(wrong) && (wrong % 10) !== unitDigit) {
         options.add(wrong);
       }
       attempts++;
     }
 
-    // Fallback — if somehow we still don't have 4 unique values
+    // --- Fallback: if we still need more options, accept anything unique ---
     let fallback = 1;
     while (options.size < 4) {
       const candidate = correctAnswer + fallback;
@@ -347,6 +371,7 @@
     correctCount = 0;
     wrongCount   = 0;
     testActive   = true;
+    testStartTime = Date.now();  // Record when test began
     window._aptitudeTestRunning = true;
 
     showPage('aptitude-page');
@@ -383,6 +408,12 @@
       : '0.0';
     const passed    = (correctCount / TOTAL_QUESTIONS) * 100 >= PASS_PERCENT;
 
+    // Calculate total time taken
+    const totalTimeSec = Math.round((Date.now() - testStartTime) / 1000);
+    const timeMins = Math.floor(totalTimeSec / 60);
+    const timeSecs = totalTimeSec % 60;
+    const timeStr  = `${String(timeMins).padStart(2, '0')}:${String(timeSecs).padStart(2, '0')}`;
+
     // Pass / Fail label
     const label = $('apt-result-label');
     if (label) {
@@ -417,6 +448,10 @@
         <div class="stat-card blue">
           <span class="stat-value">${accuracy}%</span>
           <span class="stat-label">Accuracy</span>
+        </div>
+        <div class="stat-card purple">
+          <span class="stat-value">${timeStr}</span>
+          <span class="stat-label">Time Taken</span>
         </div>
       `;
     }
