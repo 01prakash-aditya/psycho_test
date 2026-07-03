@@ -512,6 +512,7 @@
    */
   function onKeyDown(e) {
     if (!testActive) return;
+    if (window._embeddedTestRunning) return;
 
     // Map key to 0-based choice index
     let choiceIndex = -1;

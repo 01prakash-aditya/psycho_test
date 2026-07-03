@@ -79,6 +79,35 @@
                         <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
                     </button>
                 </div>
+
+                <!-- Embedded Figures Test Card -->
+                <div class="test-card">
+                    <div class="test-card-icon">
+                        <div class="figure-preview">
+                            <svg viewBox="0 0 80 80" width="60" height="60">
+                                <rect x="10" y="10" width="60" height="60" stroke="#1a1a2e" stroke-width="2.5" fill="none"/>
+                                <line x1="10" y1="10" x2="70" y2="70" stroke="#1a1a2e" stroke-width="2" />
+                                <line x1="70" y1="10" x2="10" y2="70" stroke="#1a1a2e" stroke-width="2" />
+                                <polygon points="40,18 52,50 28,50" stroke="#7c3aed" stroke-width="2.5" fill="rgba(124,58,237,0.1)"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <h2 class="test-card-title">🔍 Embedded Figures</h2>
+                    <p class="test-card-desc">Visual Pattern Recognition</p>
+                    <div class="test-card-details">
+                        <span class="detail-badge">⏱ 5 minutes</span>
+                        <span class="detail-badge">📝 25 questions</span>
+                    </div>
+                    <ul class="test-card-info">
+                        <li>Find hidden simple shapes in complex figures</li>
+                        <li>Press <kbd>1</kbd>/<kbd>2</kbd>/<kbd>3</kbd>/<kbd>4</kbd> to select answer</li>
+                        <li>Tests visual perception & spatial reasoning</li>
+                    </ul>
+                    <button id="start-embedded-btn" class="start-btn embedded-btn">
+                        <span>Start Embedded Figures</span>
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -281,8 +310,124 @@
             </div>
         </div>
     </div>
+    <!-- ============================================= -->
+    <!-- EMBEDDED FIGURES TEST PAGE                     -->
+    <!-- ============================================= -->
+    <div id="emb-page" class="page">
+        <header class="test-header">
+            <div class="header-left">
+                <div class="header-logo">
+                    <img src="logo.png" alt="Indian Railways Logo" width="36" height="36">
+                </div>
+                <h1 class="header-title">Embedded Figures Test</h1>
+            </div>
+            <div class="header-center">
+                <div class="timer-box" id="emb-timer-box">
+                    <span>Time Left </span>
+                    <span id="emb-timer-display">00:05:00</span>
+                </div>
+            </div>
+            <div class="header-right">
+                <span class="question-counter" id="emb-question-number">Question 1 / 25</span>
+                <button id="emb-fullscreen-btn" class="btn-fullscreen">Switch Fullscreen</button>
+                <button id="emb-exit-btn" class="btn-exit">Exit</button>
+            </div>
+        </header>
+
+        <!-- Progress Bar -->
+        <div class="apt-progress-wrapper">
+            <div class="apt-progress-bar" id="emb-progress-bar"></div>
+        </div>
+
+        <!-- Instructions -->
+        <div class="instructions-panel">
+            <ul>
+                <li><span class="dot blue"></span> Press <strong>1</strong> for Option (a)</li>
+                <li><span class="dot red"></span> Press <strong>2</strong> for Option (b)</li>
+                <li><span class="dot yellow"></span> Press <strong>3</strong> for Option (c)</li>
+                <li><span class="dot green"></span> Press <strong>4</strong> for Option (d)</li>
+            </ul>
+        </div>
+
+        <!-- Embedded Figure Question Area -->
+        <div class="emb-question-area">
+            <div class="emb-layout">
+                <div class="emb-question-side">
+                    <div class="emb-label">Question Figure</div>
+                    <div class="emb-figure-box" id="emb-question-figure">
+                        <!-- Question SVG injected here -->
+                    </div>
+                </div>
+                <div class="emb-answers-side">
+                    <div class="emb-label">Answer Figures</div>
+                    <div class="emb-options-grid">
+                        <button class="emb-option" id="emb-option-1" data-option="1">
+                            <span class="emb-option-label">(a)</span>
+                            <div class="emb-option-figure"></div>
+                        </button>
+                        <button class="emb-option" id="emb-option-2" data-option="2">
+                            <span class="emb-option-label">(b)</span>
+                            <div class="emb-option-figure"></div>
+                        </button>
+                        <button class="emb-option" id="emb-option-3" data-option="3">
+                            <span class="emb-option-label">(c)</span>
+                            <div class="emb-option-figure"></div>
+                        </button>
+                        <button class="emb-option" id="emb-option-4" data-option="4">
+                            <span class="emb-option-label">(d)</span>
+                            <div class="emb-option-figure"></div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="emb-feedback" id="emb-feedback"></div>
+        </div>
+    </div>
+
+    <!-- ============================================= -->
+    <!-- EMBEDDED FIGURES RESULTS PAGE                  -->
+    <!-- ============================================= -->
+    <div id="emb-results-page" class="page">
+        <header class="test-header">
+            <div class="header-left">
+                <div class="header-logo">
+                    <img src="logo.png" alt="Indian Railways Logo" width="36" height="36">
+                </div>
+                <h1 class="header-title">Embedded Figures — Results</h1>
+            </div>
+            <div class="header-right">
+                <button id="emb-results-fullscreen-btn" class="btn-fullscreen">Switch Fullscreen</button>
+                <button id="emb-results-exit-btn" class="btn-exit">Exit</button>
+            </div>
+        </header>
+
+        <div class="results-container">
+            <h2 class="results-title">Embedded Figures Test Completed</h2>
+            <div class="result-status">
+                <span>Test Result: </span>
+                <strong id="emb-result-label">Passed</strong>
+            </div>
+            <div class="results-stats" id="emb-results-stats"></div>
+            <button id="emb-reset-btn" class="reset-btn">Reset Test</button>
+            <div class="results-table-wrapper">
+                <table class="results-table emb-results-table">
+                    <thead>
+                        <tr>
+                            <th>Index</th>
+                            <th>Your Answer</th>
+                            <th>Correct Answer</th>
+                            <th>Result</th>
+                            <th>Time Taken(s)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="emb-results-tbody"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 
     <script src="app.js"></script>
     <script src="aptitude.js"></script>
+    <script src="embedded.js"></script>
 </body>
 </html>
