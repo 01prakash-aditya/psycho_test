@@ -22,196 +22,172 @@
 
   // ── Question bank (25 questions) ─────────────────────────
 
-  var questions = (function() {
-    var qs = [];
-
-    function eq(l1, l2) {
-      var tol = 0.1;
-      return (Math.abs(l1[0]-l2[0])<tol && Math.abs(l1[1]-l2[1])<tol && Math.abs(l1[2]-l2[2])<tol && Math.abs(l1[3]-l2[3])<tol) ||
-             (Math.abs(l1[0]-l2[2])<tol && Math.abs(l1[1]-l2[3])<tol && Math.abs(l1[2]-l2[0])<tol && Math.abs(l1[3]-l2[1])<tol);
+  var scrapedPool = [
+  {
+    "id": 1,
+    "image": "embedded_images/q_1.jpg",
+    "correctIndex": 2
+  },
+  {
+    "id": 2,
+    "image": "embedded_images/q_2.jpg",
+    "correctIndex": 2
+  },
+  {
+    "id": 3,
+    "image": "embedded_images/q_3.jpg",
+    "correctIndex": 3
+  },
+  {
+    "id": 4,
+    "image": "embedded_images/q_4.jpg",
+    "correctIndex": 0
+  },
+  {
+    "id": 5,
+    "image": "embedded_images/q_5.jpg",
+    "correctIndex": 2
+  },
+  {
+    "id": 6,
+    "image": "embedded_images/q_6.jpg",
+    "correctIndex": 3
+  },
+  {
+    "id": 7,
+    "image": "embedded_images/q_7.jpg",
+    "correctIndex": 1
+  },
+  {
+    "id": 8,
+    "image": "embedded_images/q_8.jpg",
+    "correctIndex": 3
+  },
+  {
+    "id": 9,
+    "image": "embedded_images/q_9.jpg",
+    "correctIndex": 1
+  },
+  {
+    "id": 10,
+    "image": "embedded_images/q_10.jpg",
+    "correctIndex": 3
+  },
+  {
+    "id": 11,
+    "image": "embedded_images/q_11.jpg",
+    "correctIndex": 0
+  },
+  {
+    "id": 12,
+    "image": "embedded_images/q_12.jpg",
+    "correctIndex": 2
+  },
+  {
+    "id": 13,
+    "image": "embedded_images/q_13.jpg",
+    "correctIndex": 3
+  },
+  {
+    "id": 14,
+    "image": "embedded_images/q_14.jpg",
+    "correctIndex": 1
+  },
+  {
+    "id": 15,
+    "image": "embedded_images/q_15.jpg",
+    "correctIndex": 3
+  },
+  {
+    "id": 16,
+    "image": "embedded_images/q_16.jpg",
+    "correctIndex": 3
+  },
+  {
+    "id": 17,
+    "image": "embedded_images/q_17.jpg",
+    "correctIndex": 3
+  },
+  {
+    "id": 18,
+    "image": "embedded_images/q_18.jpg",
+    "correctIndex": 1
+  },
+  {
+    "id": 19,
+    "image": "embedded_images/q_19.jpg",
+    "correctIndex": 2
+  },
+  {
+    "id": 20,
+    "image": "embedded_images/q_20.jpg",
+    "correctIndex": 3
+  },
+  {
+    "id": 21,
+    "image": "embedded_images/q_21.jpg",
+    "correctIndex": 2
+  },
+  {
+    "id": 22,
+    "image": "embedded_images/q_22.jpg",
+    "correctIndex": 2
+  },
+  {
+    "id": 23,
+    "image": "embedded_images/q_23.jpg",
+    "correctIndex": 3
+  },
+  {
+    "id": 24,
+    "image": "embedded_images/q_24.jpg",
+    "correctIndex": 1
+  },
+  {
+    "id": 25,
+    "image": "embedded_images/q_25.jpg",
+    "correctIndex": 3
+  },
+  {
+    "id": 26,
+    "image": "embedded_images/q_26.jpg",
+    "correctIndex": 0
+  },
+  {
+    "id": 27,
+    "image": "embedded_images/q_27.jpg",
+    "correctIndex": 1
+  },
+  {
+    "id": 28,
+    "image": "embedded_images/q_28.jpg",
+    "correctIndex": 3
+  },
+  {
+    "id": 29,
+    "image": "embedded_images/q_29.jpg",
+    "correctIndex": 2
+  },
+  {
+    "id": 30,
+    "image": "embedded_images/q_30.jpg",
+    "correctIndex": 1
+  }
+];
+  var questions = [];
+  function generateQuestions() {
+    var qs = scrapedPool.slice(); // copy
+    // Shuffle pool
+    for(var j=qs.length-1; j>0; j--) {
+       var rnd = Math.floor(Math.random() * (j+1));
+       var t = qs[j]; qs[j] = qs[rnd]; qs[rnd] = t;
     }
-
-    function splitLine(line) {
-      var x1 = line[0], y1 = line[1], x2 = line[2], y2 = line[3];
-      var segments = [];
-      var midX = (x1 + x2) / 2;
-      var midY = (y1 + y2) / 2;
-      var dist = Math.sqrt((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1));
-      if (dist > 65) { 
-        segments.push([x1, y1, midX, midY]);
-        segments.push([midX, midY, x2, y2]);
-      } else {
-        segments.push(line);
-      }
-      return segments;
-    }
-
-    function segmentize(lines) {
-      var segs = [];
-      lines.forEach(function(l) {
-        var parts = splitLine(l);
-        parts.forEach(function(p) {
-          var parts2 = splitLine(p);
-          parts2.forEach(function(p2) { segs.push(p2); });
-        });
-      });
-      return segs;
-    }
-
-    var F_BORDER = [[20,20,100,20], [100,20,100,100], [100,100,20,100], [20,100,20,20]];
-    var F_MIDVERT = [[60,20,60,100]];
-    var F_MIDHORIZ = [[20,60,100,60]];
-    var F_DIAG1 = [[20,20,100,100]];
-    var F_DIAG2 = [[20,100,100,20]];
-    var F_DIAMOND = [[60,20,100,60], [100,60,60,100], [60,100,20,60], [20,60,60,20]];
-    var F_VTOP = [[20,20,60,60], [100,20,60,60]];
-    var F_VBOT = [[20,100,60,60], [100,100,60,60]];
-    var F_VLEFT = [[20,20,60,60], [20,100,60,60]];
-    var F_VRIGHT = [[100,20,60,60], [100,100,60,60]];
-    var F_SQUARE_TL = [[20,20,60,20], [60,20,60,60], [60,60,20,60], [20,60,20,20]];
-    var F_SQUARE_BR = [[60,60,100,60], [100,60,100,100], [100,100,60,100], [60,100,60,60]];
-    
-    var allFeatures = [F_MIDVERT, F_MIDHORIZ, F_DIAG1, F_DIAG2, F_DIAMOND, F_VTOP, F_VBOT, F_VLEFT, F_VRIGHT, F_SQUARE_TL, F_SQUARE_BR];
-
-    var targets = [
-      [[20,60,60,60], [20,60,20,100], [20,100,60,60]], 
-      [[20,100,100,100], [100,100,60,60], [60,60,20,100]], 
-      [[20,20,60,20], [60,20,60,60], [60,60,20,60], [20,60,20,20]], 
-      [[20,60,60,60], [60,60,100,20], [100,20,60,20], [60,20,20,60]], 
-      [[60,60,100,100], [100,100,60,100], [60,100,20,60], [20,60,60,60]], 
-      [[60,20,100,60], [100,60,60,100], [60,100,20,60], [20,60,60,20]], 
-      [[20,60,60,60], [60,60,60,100], [60,100,100,100]], 
-      [[60,20,60,60], [60,60,60,100], [20,60,60,60], [60,60,100,60]], 
-      [[20,20,20,60], [20,60,60,60]], 
-      [[20,20,20,60], [20,60,20,100], [20,100,60,100], [60,100,100,100], [100,100,60,60], [60,60,20,20]], 
-      [[60,20,100,20], [100,20,100,60], [100,60,60,60], [60,60,60,20], [60,60,20,100], [20,100,100,100]], 
-      [[60,20,60,60], [60,60,20,60], [20,20,100,100]] 
-    ];
-
-    function drawLines(lines) { return lines.map(function(l) { return L(l[0], l[1], l[2], l[3]); }).join(''); }
-    function getContains(gridSegs, targetSegs) {
-      return targetSegs.every(function(ts) {
-        return gridSegs.some(function(gs) { return eq(gs, ts); });
-      });
-    }
-
-    var allCombos = [];
-    for(var i=0; i<allFeatures.length; i++) {
-      for(var j=i+1; j<allFeatures.length; j++) {
-        for(var k=j+1; k<allFeatures.length; k++) {
-          allCombos.push([i, j, k]);
-        }
-      }
-    }
-
-    var usedCombos = {};
-
-    for (var i = 0; i < 25; i++) {
-      var target = targets[i % targets.length];
-      var targetSegs = segmentize(target);
-      
-      var validCombos = allCombos.filter(function(c) {
-        var grid = F_BORDER.concat(allFeatures[c[0]], allFeatures[c[1]], allFeatures[c[2]]);
-        return getContains(segmentize(grid), targetSegs);
-      });
-      
-      var selectedCombo = validCombos.length > 0 ? validCombos[0] : allCombos[0];
-      for(var v=0; v<validCombos.length; v++) {
-         var key = (i % targets.length) + '_' + validCombos[v].join('_');
-         if (!usedCombos[key]) {
-           selectedCombo = validCombos[v];
-           usedCombos[key] = true;
-           break;
-         }
-      }
-      
-      var correctGrid = F_BORDER.concat(allFeatures[selectedCombo[0]], allFeatures[selectedCombo[1]], allFeatures[selectedCombo[2]]);
-      var correctSegs = segmentize(correctGrid);
-      targetSegs.forEach(function(ts) {
-        if (!correctSegs.some(function(gs) { return eq(gs, ts); })) {
-          correctSegs.push(ts);
-        }
-      });
-      
-      var optionsData = [correctSegs];
-      
-      var featuresToSwap = [0, 1, 2];
-      for(var swapI = 0; swapI < 3; swapI++) {
-         var fRemove = selectedCombo[featuresToSwap[swapI]];
-         var fA = selectedCombo[(swapI+1)%3];
-         var fB = selectedCombo[(swapI+2)%3];
-         
-         for(var tryF = 0; tryF < allFeatures.length; tryF++) {
-            if(tryF === fRemove || tryF === fA || tryF === fB) continue;
-            var distGrid = F_BORDER.concat(allFeatures[fA], allFeatures[fB], allFeatures[tryF]);
-            var distSegs = segmentize(distGrid);
-            
-            if (!getContains(distSegs, targetSegs)) {
-               var isUnique = true;
-               for(var k=0; k<optionsData.length; k++) {
-                  if (optionsData[k].length === distSegs.length) {
-                     var same = distSegs.every(function(ds) {
-                        return optionsData[k].some(function(os) { return eq(os, ds); });
-                     });
-                     if (same) isUnique = false;
-                  }
-               }
-               if (isUnique) {
-                 optionsData.push(distSegs);
-                 break; 
-               }
-            }
-         }
-      }
-      
-      var attempts = 0;
-      while(optionsData.length < 4 && attempts < 200) {
-         attempts++;
-         var r1 = Math.floor(Math.random() * allFeatures.length);
-         var r2 = Math.floor(Math.random() * allFeatures.length);
-         var r3 = Math.floor(Math.random() * allFeatures.length);
-         if (r1===r2 || r2===r3 || r1===r3) continue;
-         
-         var distGrid = F_BORDER.concat(allFeatures[r1], allFeatures[r2], allFeatures[r3]);
-         var distSegs = segmentize(distGrid);
-         if (!getContains(distSegs, targetSegs)) {
-             var isUnique = true;
-             for(var k=0; k<optionsData.length; k++) {
-                if (optionsData[k].length === distSegs.length) {
-                   var same = distSegs.every(function(ds) {
-                      return optionsData[k].some(function(os) { return eq(os, ds); });
-                   });
-                   if (same) isUnique = false;
-                }
-             }
-             if (isUnique) optionsData.push(distSegs);
-         }
-      }
-      
-      // Fallback to prevent crash if uniqueness couldn't be satisfied
-      while(optionsData.length < 4) {
-         var fallbackGrid = F_BORDER.concat(allFeatures[0], allFeatures[1], allFeatures[optionsData.length]);
-         optionsData.push(segmentize(fallbackGrid));
-      }
-      
-      var correctIndex = (i * 5) % 4;
-      var temp = optionsData[correctIndex];
-      optionsData[correctIndex] = optionsData[0];
-      optionsData[0] = temp;
-      
-      var optionsSvg = optionsData.map(function(optLines) {
-        return svg(drawLines(optLines));
-      });
-      
-      qs.push({
-        id: i + 1,
-        questionSvg: svg(drawLines(targetSegs)),
-        options: optionsSvg,
-        correctIndex: correctIndex
-      });
-    }
-    return qs;
-  })();
+    // Pick 25
+    qs = qs.slice(0, 25);
+    // Assign IDs for tracking
+    for(var j=0; j<qs.length; j++) qs[j].id = j + 1;
+    questions = qs;
+  }
   // ── State variables ──────────────────────────────────────
   var currentQuestion = 0;
   var answers = [];          // { selected: 0-3|null, correct: bool, time: ms }
@@ -225,9 +201,14 @@
 
   // ── Public start hook ────────────────────────────────────
   function init() {
-    var btn = $('start-embedded-btn');
-    if (btn) {
-      btn.addEventListener('click', startTest);
+    for (var i = 1; i <= 5; i++) {
+      var btn = $('start-embedded-' + i);
+      if (btn) {
+        btn.addEventListener('click', function() {
+          generateQuestions();
+          startTest();
+        });
+      }
     }
     var resetBtn = $('emb-reset-btn');
     if (resetBtn) {
@@ -322,16 +303,16 @@
     var qNum = $('emb-question-number');
     if (qNum) qNum.textContent = 'Question ' + (currentQuestion + 1) + ' / ' + questions.length;
 
-    // question figure
+    // question figure - NOW A SINGLE IMAGE
     var qFig = $('emb-question-figure');
-    if (qFig) qFig.innerHTML = q.questionSvg;
+    if (qFig) qFig.innerHTML = '<img src="' + q.image + '" style="max-width: 100%; max-height: 100%; object-fit: contain;">';
 
-    // options
-    var labels = ['(a)', '(b)', '(c)', '(d)'];
+    // options - Generic A, B, C, D
+    var labels = ['(A)', '(B)', '(C)', '(D)'];
     for (var i = 0; i < 4; i++) {
       var opt = $('emb-option-' + (i + 1));
       if (opt) {
-        opt.innerHTML = '<span class="emb-option-label">' + labels[i] + '</span><div class="emb-option-figure">' + q.options[i] + '</div>';
+        opt.innerHTML = '<span class="emb-option-label" style="font-size: 24px; font-weight: bold; margin: auto;">' + labels[i] + '</span>';
         opt.classList.remove('correct-flash', 'wrong-flash');
       }
     }

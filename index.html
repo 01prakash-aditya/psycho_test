@@ -103,10 +103,13 @@
                         <li>Press <kbd>1</kbd>/<kbd>2</kbd>/<kbd>3</kbd>/<kbd>4</kbd> to select answer</li>
                         <li>Tests visual perception & spatial reasoning</li>
                     </ul>
-                    <button id="start-embedded-btn" class="start-btn embedded-btn">
-                        <span>Start Embedded Figures</span>
-                        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-                    </button>
+                    <div class="test-set-buttons" style="display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 15px;">
+                        <button id="start-embedded-1" class="start-btn embedded-btn" style="flex: 1 1 45%; padding: 10px; font-size: 0.9em;">Test 1</button>
+                        <button id="start-embedded-2" class="start-btn embedded-btn" style="flex: 1 1 45%; padding: 10px; font-size: 0.9em;">Test 2</button>
+                        <button id="start-embedded-3" class="start-btn embedded-btn" style="flex: 1 1 45%; padding: 10px; font-size: 0.9em;">Test 3</button>
+                        <button id="start-embedded-4" class="start-btn embedded-btn" style="flex: 1 1 45%; padding: 10px; font-size: 0.9em;">Test 4</button>
+                        <button id="start-embedded-5" class="start-btn embedded-btn" style="flex: 1 1 100%; padding: 10px; font-size: 0.9em;">Test 5</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -341,7 +344,6 @@
 
         <!-- Instructions -->
         <div class="instructions-panel">
-            <ul>
                 <li><span class="dot blue"></span> Press <strong>1</strong> for Option (a)</li>
                 <li><span class="dot red"></span> Press <strong>2</strong> for Option (b)</li>
                 <li><span class="dot yellow"></span> Press <strong>3</strong> for Option (c)</li>
@@ -350,34 +352,25 @@
         </div>
 
         <!-- Embedded Figure Question Area -->
-        <div class="emb-question-area">
-            <div class="emb-layout">
-                <div class="emb-question-side">
-                    <div class="emb-label">Question Figure</div>
-                    <div class="emb-figure-box" id="emb-question-figure">
-                        <!-- Question SVG injected here -->
-                    </div>
+        <div class="emb-question-area" style="padding: 20px; display: flex; flex-direction: column; align-items: center;">
+            <div class="emb-question-container" style="display: flex; flex-direction: column; align-items: center; gap: 30px; width: 100%; max-width: 900px;">
+                <div class="emb-figure-box" id="emb-question-figure" style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); width: 100%; min-height: 300px; display: flex; justify-content: center; align-items: center;">
+                    <!-- Question Image injected here -->
                 </div>
-                <div class="emb-answers-side">
-                    <div class="emb-label">Answer Figures</div>
-                    <div class="emb-options-grid">
-                        <button class="emb-option" id="emb-option-1" data-option="1">
-                            <span class="emb-option-label">(a)</span>
-                            <div class="emb-option-figure"></div>
-                        </button>
-                        <button class="emb-option" id="emb-option-2" data-option="2">
-                            <span class="emb-option-label">(b)</span>
-                            <div class="emb-option-figure"></div>
-                        </button>
-                        <button class="emb-option" id="emb-option-3" data-option="3">
-                            <span class="emb-option-label">(c)</span>
-                            <div class="emb-option-figure"></div>
-                        </button>
-                        <button class="emb-option" id="emb-option-4" data-option="4">
-                            <span class="emb-option-label">(d)</span>
-                            <div class="emb-option-figure"></div>
-                        </button>
-                    </div>
+                
+                <div class="emb-options-grid" style="display: flex; gap: 20px; justify-content: center; width: 100%;">
+                    <button class="emb-option" id="emb-option-1" data-option="1" style="flex: 1; max-width: 150px; padding: 20px; font-size: 24px; font-weight: bold; cursor: pointer; border: 2px solid #e2e8f0; border-radius: 8px; background: white; transition: all 0.2s;">
+                        <span class="emb-option-label">(A)</span>
+                    </button>
+                    <button class="emb-option" id="emb-option-2" data-option="2" style="flex: 1; max-width: 150px; padding: 20px; font-size: 24px; font-weight: bold; cursor: pointer; border: 2px solid #e2e8f0; border-radius: 8px; background: white; transition: all 0.2s;">
+                        <span class="emb-option-label">(B)</span>
+                    </button>
+                    <button class="emb-option" id="emb-option-3" data-option="3" style="flex: 1; max-width: 150px; padding: 20px; font-size: 24px; font-weight: bold; cursor: pointer; border: 2px solid #e2e8f0; border-radius: 8px; background: white; transition: all 0.2s;">
+                        <span class="emb-option-label">(C)</span>
+                    </button>
+                    <button class="emb-option" id="emb-option-4" data-option="4" style="flex: 1; max-width: 150px; padding: 20px; font-size: 24px; font-weight: bold; cursor: pointer; border: 2px solid #e2e8f0; border-radius: 8px; background: white; transition: all 0.2s;">
+                        <span class="emb-option-label">(D)</span>
+                    </button>
                 </div>
             </div>
             <div class="emb-feedback" id="emb-feedback"></div>
