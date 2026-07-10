@@ -40,11 +40,11 @@
                     <p class="test-card-desc">Signal Color Identification</p>
                     <div class="test-card-details">
                         <span class="detail-badge">⏱ 60 seconds</span>
-                        <span class="detail-badge">🎯 R / Y / G keys</span>
+                        <span class="detail-badge">🎯 R/Y/G/B keys</span>
                     </div>
                     <ul class="test-card-info">
-                        <li>Identify traffic signal colors</li>
-                        <li>Press <kbd>L</kbd> for next, <kbd>R</kbd>/<kbd>Y</kbd>/<kbd>G</kbd> to answer</li>
+                        <li>Identify box colors</li>
+                        <li>Press <kbd>L</kbd> for next, <kbd>R</kbd>/<kbd>Y</kbd>/<kbd>G</kbd>/<kbd>B</kbd> to answer</li>
                         <li>Tests reaction time & color perception</li>
                     </ul>
                     <button id="start-test-btn" class="start-btn">
@@ -111,6 +111,38 @@
                         <button id="start-embedded-5" class="start-btn embedded-btn" style="flex: 1 1 100%; padding: 10px; font-size: 0.9em;">Test 5</button>
                     </div>
                 </div>
+
+                <!-- Figure Formation Test Card -->
+                <div class="test-card">
+                    <div class="test-card-icon">
+                        <div class="figure-preview">
+                            <svg viewBox="0 0 80 80" width="60" height="60">
+                                <rect x="10" y="10" width="60" height="60" stroke="#1a1a2e" stroke-width="2.5" fill="none"/>
+                                <line x1="10" y1="10" x2="70" y2="70" stroke="#1a1a2e" stroke-width="2" />
+                                <line x1="70" y1="10" x2="10" y2="70" stroke="#1a1a2e" stroke-width="2" />
+                                <polygon points="40,18 52,50 28,50" stroke="#7c3aed" stroke-width="2.5" fill="rgba(124,58,237,0.1)"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <h2 class="test-card-title">🔍 Figure Formation</h2>
+                    <p class="test-card-desc">Association & Joining Figures</p>
+                    <div class="test-card-details">
+                        <span class="detail-badge">⏱ 10 minutes</span>
+                        <span class="detail-badge">📝 25 questions</span>
+                    </div>
+                    <ul class="test-card-info">
+                        <li>Find which option is formed by joining the given pieces</li>
+                        <li>Press <kbd>1</kbd>/<kbd>2</kbd>/<kbd>3</kbd>/<kbd>4</kbd> to select answer</li>
+                        <li>Tests visual perception & spatial reasoning</li>
+                    </ul>
+                    <div class="test-set-buttons" style="display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 15px;">
+                        <button id="start-formation-1" class="start-btn formation-btn" style="flex: 1 1 45%; padding: 10px; font-size: 0.9em;">Test 1</button>
+                        <button id="start-formation-2" class="start-btn formation-btn" style="flex: 1 1 45%; padding: 10px; font-size: 0.9em;">Test 2</button>
+                        <button id="start-formation-3" class="start-btn formation-btn" style="flex: 1 1 45%; padding: 10px; font-size: 0.9em;">Test 3</button>
+                        <button id="start-formation-4" class="start-btn formation-btn" style="flex: 1 1 45%; padding: 10px; font-size: 0.9em;">Test 4</button>
+                        <button id="start-formation-5" class="start-btn formation-btn" style="flex: 1 1 100%; padding: 10px; font-size: 0.9em;">Test 5</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -141,16 +173,25 @@
         <div class="instructions-panel" id="instructions-panel">
             <ul>
                 <li><span class="dot blue"></span> Press <strong>L</strong> for next Picture</li>
-                <li><span class="dot red"></span> Press <strong>R</strong> for Answering Red</li>
-                <li><span class="dot yellow"></span> Press <strong>Y</strong> for Answering Yellow</li>
-                <li><span class="dot green"></span> Press <strong>G</strong> for Answering Green</li>
+                <li><span class="dot red"></span> Press <strong>R</strong> for Red</li>
+                <li><span class="dot yellow"></span> Press <strong>Y</strong> for Yellow</li>
+                <li><span class="dot green"></span> Press <strong>G</strong> for Green</li>
+                <li><span class="dot blue" style="background-color: blue;"></span> Press <strong>B</strong> for Blue</li>
             </ul>
         </div>
 
         <div class="signal-display-area" id="signal-display-area">
             <div class="signal-container" id="signal-container">
-                <img id="signal-image" src="" alt="Traffic Signal" class="signal-image" style="display:none;">
-                <div class="status-text" id="status-text">Press L to see the first signal</div>
+                <div id="signal-box" style="display:none; width: 150px; height: 150px; border-radius: 12px; margin: 0 auto; box-shadow: 0 4px 10px rgba(0,0,0,0.1);"></div>
+                <div class="status-text" id="status-text">Press L or Next to see the first box</div>
+            </div>
+            
+            <div class="reaction-buttons-container" style="display: flex; gap: 10px; justify-content: center; margin-top: 30px;">
+                <button class="reaction-btn" data-key="L" style="padding: 15px 25px; font-size: 18px; font-weight: bold; cursor: pointer; border-radius: 8px; border: 2px solid #94a3b8; background: white; color: #475569;">Next (L)</button>
+                <button class="reaction-btn" data-key="R" style="padding: 15px 25px; font-size: 18px; font-weight: bold; cursor: pointer; border-radius: 8px; border: 2px solid #ef4444; background: white; color: #ef4444;">Red (R)</button>
+                <button class="reaction-btn" data-key="Y" style="padding: 15px 25px; font-size: 18px; font-weight: bold; cursor: pointer; border-radius: 8px; border: 2px solid #eab308; background: white; color: #eab308;">Yellow (Y)</button>
+                <button class="reaction-btn" data-key="G" style="padding: 15px 25px; font-size: 18px; font-weight: bold; cursor: pointer; border-radius: 8px; border: 2px solid #22c55e; background: white; color: #22c55e;">Green (G)</button>
+                <button class="reaction-btn" data-key="B" style="padding: 15px 25px; font-size: 18px; font-weight: bold; cursor: pointer; border-radius: 8px; border: 2px solid #3b82f6; background: white; color: #3b82f6;">Blue (B)</button>
             </div>
             <div class="feedback-indicator" id="feedback-indicator"></div>
         </div>
@@ -344,6 +385,7 @@
 
         <!-- Instructions -->
         <div class="instructions-panel">
+            <ul>
                 <li><span class="dot blue"></span> Press <strong>1</strong> for Option (a)</li>
                 <li><span class="dot red"></span> Press <strong>2</strong> for Option (b)</li>
                 <li><span class="dot yellow"></span> Press <strong>3</strong> for Option (c)</li>
@@ -374,6 +416,70 @@
                 </div>
             </div>
             <div class="emb-feedback" id="emb-feedback"></div>
+        </div>
+    </div>
+
+    <!-- FORMATION PAGE -->
+    <div id="form-page" class="page">
+        <header class="test-header">
+            <div class="header-left">
+                <div class="header-logo">
+                    <img src="logo.png" alt="Indian Railways Logo" width="36" height="36">
+                </div>
+                <h1 class="header-title">Figure Formation Test</h1>
+            </div>
+            <div class="header-center">
+                <div class="timer-box" id="form-timer-box">
+                    <span>Time Left </span>
+                    <span id="form-timer-display">00:10:00</span>
+                </div>
+            </div>
+            <div class="header-right">
+                <span class="question-counter" id="form-question-number">Question 1 / 25</span>
+                <button id="form-fullscreen-btn" class="btn-fullscreen">Switch Fullscreen</button>
+                <button id="form-exit-btn" class="btn-exit">Exit</button>
+            </div>
+        </header>
+
+        <!-- Progress Bar -->
+        <div class="apt-progress-wrapper">
+            <div class="apt-progress-bar" id="form-progress-bar"></div>
+        </div>
+
+        <!-- Instructions -->
+        <div class="instructions-panel">
+            <ul>
+                <li><span class="dot blue"></span> Press <strong>1</strong> for Option (a)</li>
+                <li><span class="dot red"></span> Press <strong>2</strong> for Option (b)</li>
+                <li><span class="dot yellow"></span> Press <strong>3</strong> for Option (c)</li>
+                <li><span class="dot green"></span> Press <strong>4</strong> for Option (d)</li>
+            </ul>
+        </div>
+
+        <!-- Embedded Figure Question Area -->
+        <div class="form-question-area" style="padding: 20px; display: flex; flex-direction: column; align-items: center;">
+            <div class="form-question-container" style="display: flex; flex-direction: column; align-items: center; gap: 30px; width: 100%; max-width: 900px;">
+                <div class="form-figure-box" id="form-question-figure" style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); width: 100%; min-height: 300px; display: flex; justify-content: center; align-items: center;">
+                    <!-- Question Image injected here -->
+                </div>
+                
+                <div class="form-options-grid" style="display: flex; gap: 20px; justify-content: center; width: 100%;">
+                    <button class="form-option" id="form-option-1" data-option="1" style="flex: 1; max-width: 150px; padding: 20px; font-size: 24px; font-weight: bold; cursor: pointer; border: 2px solid #e2e8f0; border-radius: 8px; background: white; transition: all 0.2s;">
+                        <span class="form-option-label">(A)</span>
+                    </button>
+                    <button class="form-option" id="form-option-2" data-option="2" style="flex: 1; max-width: 150px; padding: 20px; font-size: 24px; font-weight: bold; cursor: pointer; border: 2px solid #e2e8f0; border-radius: 8px; background: white; transition: all 0.2s;">
+                        <span class="form-option-label">(B)</span>
+                    </button>
+                    <button class="form-option" id="form-option-3" data-option="3" style="flex: 1; max-width: 150px; padding: 20px; font-size: 24px; font-weight: bold; cursor: pointer; border: 2px solid #e2e8f0; border-radius: 8px; background: white; transition: all 0.2s;">
+                        <span class="form-option-label">(C)</span>
+                    </button>
+                    <button class="form-option" id="form-option-4" data-option="4" style="flex: 1; max-width: 150px; padding: 20px; font-size: 24px; font-weight: bold; cursor: pointer; border: 2px solid #e2e8f0; border-radius: 8px; background: white; transition: all 0.2s;">
+                        <span class="form-option-label">(D)</span>
+                    </button>
+                </div>
+                </div>
+            </div>
+            <div class="form-feedback" id="form-feedback"></div>
         </div>
     </div>
 
@@ -417,10 +523,53 @@
                 </table>
             </div>
         </div>
+
+    </div>
+
+    <!-- FORMATION RESULTS PAGE -->
+    <div id="form-results-page" class="page">
+        <header class="test-header">
+            <div class="header-left">
+                <div class="header-logo">
+                    <img src="logo.png" alt="Indian Railways Logo" width="36" height="36">
+                </div>
+                <h1 class="header-title">Figure Formation — Results</h1>
+            </div>
+            <div class="header-right">
+                <button id="form-results-fullscreen-btn" class="btn-fullscreen">Switch Fullscreen</button>
+                <button id="form-results-exit-btn" class="btn-exit">Exit</button>
+            </div>
+        </header>
+
+        <div class="results-container">
+            <h2 class="results-title">Figure Formation Test Completed</h2>
+            <div class="result-status">
+                <span>Test Result: </span>
+                <strong id="form-result-label">Passed</strong>
+            </div>
+            <div class="results-stats" id="form-results-stats"></div>
+            <button id="form-reset-btn" class="reset-btn">Reset Test</button>
+            <div class="results-table-wrapper">
+                <table class="results-table form-results-table">
+                    <thead>
+                        <tr>
+                            <th>Index</th>
+                            <th>Your Answer</th>
+                            <th>Correct Answer</th>
+                            <th>Result</th>
+                            <th>Time Taken(s)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="form-results-tbody"></tbody>
+                </table>
+            </div>
+        </div>
     </div>
 
     <script src="app.js"></script>
     <script src="aptitude.js"></script>
     <script src="embedded.js"></script>
+    <script src="scraped_formation.js"></script>
+    <script src="formation.js"></script>
 </body>
 </html>

@@ -8,28 +8,20 @@
     // ===== CONFIGURATION =====
     const TEST_DURATION = 60; // seconds
     const AUTO_CHANGE_TIMEOUT = 5000; // ms — if no answer, auto-change signal after 5s
-    const SIGNAL_COLORS = ['R', 'Y', 'G'];
-
-    // Signal images — different realistic traffic signal photos for each color
-    const SIGNAL_IMAGES = {
-        R: [
-            'images/signal_red.png',
-            'images/signal_red_2.png'
-        ],
-        Y: [
-            'images/signal_yellow.png',
-            'images/signal_yellow_2.png'
-        ],
-        G: [
-            'images/signal_green.png',
-            'images/signal_green_2.png'
-        ]
-    };
+    const SIGNAL_COLORS = ['R', 'Y', 'G', 'B'];
 
     const COLOR_NAMES = {
         R: 'Red',
         Y: 'Yellow',
-        G: 'Green'
+        G: 'Green',
+        B: 'Blue'
+    };
+
+    const COLOR_HEX = {
+        R: '#ef4444', // Red
+        Y: '#eab308', // Yellow
+        G: '#22c55e', // Green
+        B: '#3b82f6'  // Blue
     };
 
     // ===== STATE =====
@@ -60,7 +52,7 @@
         startBtn: $('start-test-btn'),
         timerBox: $('timer-box'),
         timerDisplay: $('timer-display'),
-        signalImage: $('signal-image'),
+        signalBox: $('signal-box'),
         signalContainer: $('signal-container'),
         signalDisplayArea: $('signal-display-area'),
         feedbackIndicator: $('feedback-indicator'),
@@ -90,13 +82,8 @@
                 color = SIGNAL_COLORS[Math.floor(Math.random() * SIGNAL_COLORS.length)];
             } while (color === lastColor && Math.random() < 0.6);
 
-            // Pick a random image variant for this color
-            const images = SIGNAL_IMAGES[color];
-            const imgIndex = Math.floor(Math.random() * images.length);
-
             queue.push({
-                color: color,
-                imagePath: images[imgIndex]
+                color: color
             });
             lastColor = color;
         }
@@ -224,44 +211,24 @@
         testState.queueIndex++;
 
         // INSTANTLY hide old image to prevent flash
-        elements.signalImage.style.visibility = 'hidden';
-        elements.signalImage.style.display = 'block';
+        elements.signalBox.style.backgroundColor = COLOR_HEX[signal.color];
+        elements.signalBox.style.display = 'block';
 
-        // Check if this image is already cached and ready
-        const cachedImg = imageCache[signal.imagePath];
-        if (cachedImg && cachedImg.complete && cachedImg.naturalWidth > 0) {
-            // Image is preloaded — swap and show immediately
-            elements.signalImage.src = cachedImg.src;
-            elements.signalImage.alt = `${COLOR_NAMES[signal.color]} Signal`;
-            elements.signalImage.style.visibility = 'visible';
-            testState.signalShownAt = performance.now();
-        } else {
-            // Fallback: load and reveal on completion
-            elements.signalImage.onload = function () {
-                elements.signalImage.style.visibility = 'visible';
-                testState.signalShownAt = performance.now();
-                elements.signalImage.onload = null;
-            };
-            elements.signalImage.src = signal.imagePath;
-            elements.signalImage.alt = `${COLOR_NAMES[signal.color]} Signal`;
-        }
-
-        // Set initial signalShownAt (will be corrected on actual display)
-        testState.signalShownAt = now;
+        testState.signalShownAt = performance.now();
 
         // Clear feedback
         hideFeedback();
         hideAnswerIndicator();
 
         // Update status
-        updateStatus('Identify the signal color! Press R, Y, or G');
+        updateStatus('Identify the signal color! Press R, Y, G, or B');
 
         // Start auto-change countdown
         startAutoChangeTimer();
     }
 
     function hideSignal() {
-        elements.signalImage.style.display = 'none';
+        elements.signalBox.style.display = 'none';
         testState.signalVisible = false;
     }
 
@@ -369,7 +336,8 @@
         };
 
         // Hide signal initially — user must press L to start
-        elements.signalImage.style.display = 'none';
+        elements.signalBox.style.display = 'none';
+        elements.signalBox.style.backgroundColor = 'transparent';
 
         elements.timerBox.classList.remove('warning');
         showPage('test');
@@ -510,6 +478,10 @@
                 e.preventDefault();
                 processAnswer('G');
                 break;
+            case 'B':
+                e.preventDefault();
+                processAnswer('B');
+                break;
         }
     }
 
@@ -520,6 +492,25 @@
 
         // Keyboard
         document.addEventListener('keydown', handleKeyDown);
+
+        // On-screen buttons
+        document.querySelectorAll('.reaction-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                // Ignore if held down or something, mostly for keyboard mapping
+                if (!testState.isRunning) return;
+                
+                const key = this.getAttribute('data-key');
+                if (key === 'L') {
+                    if (testState.lLocked) return;
+                    showNextSignal();
+                } else {
+                    processAnswer(key);
+                }
+                
+                // Remove focus so hitting spacebar doesn't re-trigger button
+                this.blur();
+            });
+        });
 
         // Fullscreen
         elements.fullscreenBtn.addEventListener('click', toggleFullscreen);
@@ -540,25 +531,9 @@
 
         // Reset
         elements.resetBtn.addEventListener('click', resetTest);
-
-        // Preload images
-        preloadImages();
     }
 
-    // Image cache — stores fully loaded Image objects for instant swap
-    const imageCache = {};
-
-    function preloadImages() {
-        Object.values(SIGNAL_IMAGES).forEach(paths => {
-            paths.forEach(path => {
-                const img = new Image();
-                img.src = path;
-                imageCache[path] = img;
-            });
-        });
-    }
-
-    // Initialize when DOM ready
+    // Bootstrap
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', init);
     } else {
