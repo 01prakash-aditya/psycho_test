@@ -192,7 +192,7 @@
   var currentQuestion = 0;
   var answers = [];          // { selected: 0-3|null, correct: bool, time: ms }
   var timerInterval = null;
-  var remainingSeconds = 300; // 5 minutes
+  var remainingSeconds = 600; // 10 minutes
   var testStartTime = null;
   var questionStartTime = null;
 
@@ -238,7 +238,7 @@
   function startTest() {
     currentQuestion = 0;
     answers = [];
-    remainingSeconds = 300;
+    remainingSeconds = 600;
     testStartTime = Date.now();
     window._embeddedTestRunning = true;
 
