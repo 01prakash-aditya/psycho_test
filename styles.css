@@ -1087,7 +1087,26 @@ body:-moz-full-screen {
     }
 }
 
+@media (max-width: 1024px) {
+    .timer-box span:first-child { display: none !important; }
+    .header-center { position: static; transform: none; display: flex; align-items: center; justify-content: center; flex: 1; }
+    .header-left, .header-right { flex: 1; display: flex; align-items: center; }
+    .header-left { justify-content: flex-start; }
+    .header-right { justify-content: flex-end; }
+    .btn-fullscreen .btn-text, .btn-exit .btn-text { display: none; }
+    .header-title { display: none; }
+}
+
 @media (max-width: 768px) {
+    .instructions-panel {
+        position: relative !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 90%;
+        align-self: center;
+        margin: 10px 0 20px 0;
+    }
+
     .test-selection-grid {
         grid-template-columns: 1fr;
     }
@@ -1334,3 +1353,63 @@ body:-moz-full-screen {
         width: 100px;
         height: 100px;
     }
+@media (min-width: 1025px) {
+    .mobile-keyboard-toggle {
+        display: none !important;
+    }
+}
+
+
+@media (max-width: 768px) {
+    .reaction-buttons-container {
+        flex-wrap: nowrap !important;
+        width: 100%;
+        gap: 4px !important;
+    }
+    
+    .reaction-btn {
+        flex: 1;
+        padding: 12px 2px !important;
+        font-size: 11px !important;
+        min-width: 0;
+        white-space: nowrap;
+    }
+
+    .emb-options-grid {
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        justify-content: center;
+        gap: 6px !important;
+        max-width: 100% !important;
+    }
+    
+    .emb-option {
+        flex: 1;
+        padding: 10px 4px !important;
+        font-size: 14px !important;
+        min-width: 0;
+        text-align: center;
+        justify-content: center;
+    }
+
+    .form-options-grid {
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        justify-content: center;
+        gap: 6px !important;
+        max-width: 100% !important;
+    }
+
+    .form-option {
+        flex: 1;
+        padding: 10px 4px !important;
+        min-width: 0;
+        justify-content: center;
+    }
+
+    .form-option-figure {
+        width: 100% !important;
+        height: auto !important;
+        aspect-ratio: 1;
+    }
+}

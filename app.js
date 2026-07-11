@@ -301,8 +301,8 @@
     }
 
     function showAnswerIndicator(key, isCorrect) {
-        elements.answerText.textContent = `You pressed: ${key} (${COLOR_NAMES[key]}) — ${isCorrect ? 'Right' : 'Wrong'}`;
-        elements.answerBar.classList.add('show');
+        // elements.answerText.textContent removed
+        // elements.answerBar.classList.add('show');
     }
 
     function hideAnswerIndicator() {
@@ -540,4 +540,49 @@
         init();
     }
 
+
+    // Keyboard Toggle Logic
+    const toggleKeyboardBtn = $('toggle-keyboard-btn');
+    const mobileKeyboardInput = $('mobile-keyboard-input');
+    const reactionButtonsContainer = document.querySelector('.reaction-buttons-container');
+    const iconKbd = $('icon-kbd');
+    const iconCloseKbd = $('icon-close-kbd');
+    
+    let keyboardActive = false;
+    if (toggleKeyboardBtn && mobileKeyboardInput) {
+        toggleKeyboardBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            keyboardActive = !keyboardActive;
+            if (keyboardActive) {
+                reactionButtonsContainer.style.display = 'none';
+                iconKbd.style.display = 'none';
+                iconCloseKbd.style.display = 'block';
+                mobileKeyboardInput.focus();
+            } else {
+                reactionButtonsContainer.style.display = 'flex';
+                iconKbd.style.display = 'block';
+                iconCloseKbd.style.display = 'none';
+                mobileKeyboardInput.blur();
+            }
+        });
+
+        // Ensure we maintain focus if active
+        document.addEventListener('click', (e) => {
+            if (keyboardActive && e.target !== toggleKeyboardBtn && !toggleKeyboardBtn.contains(e.target)) {
+                mobileKeyboardInput.focus();
+            }
+        });
+
+        mobileKeyboardInput.addEventListener('input', (e) => {
+            const val = mobileKeyboardInput.value.toUpperCase();
+            if (val.length > 0) {
+                const char = val.charAt(val.length - 1);
+                const keyEvent = new KeyboardEvent('keydown', { key: char });
+                document.dispatchEvent(keyEvent);
+                mobileKeyboardInput.value = ''; // clear input
+            }
+        });
+    }
 })();
+

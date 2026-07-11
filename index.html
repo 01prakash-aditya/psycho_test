@@ -165,8 +165,8 @@
                 </div>
             </div>
             <div class="header-right">
-                <button id="fullscreen-btn" class="btn-fullscreen">Switch Fullscreen</button>
-                <button id="exit-btn" class="btn-exit">Exit</button>
+                <button id="fullscreen-btn" class="btn-fullscreen"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg><span class="btn-text">Switch Fullscreen</span></button>
+                <button id="exit-btn" class="btn-exit"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg><span class="btn-text">Exit</span></button>
             </div>
         </header>
 
@@ -186,14 +186,24 @@
                 <div class="status-text" id="status-text">Press L or Next to see the first box</div>
             </div>
             
-            <div class="reaction-buttons-container" style="display: flex; gap: 10px; justify-content: center; margin-top: 30px;">
-                <button class="reaction-btn" data-key="L" style="padding: 15px 25px; font-size: 18px; font-weight: bold; cursor: pointer; border-radius: 8px; border: 2px solid #94a3b8; background: white; color: #475569;">Next (L)</button>
-                <button class="reaction-btn" data-key="R" style="padding: 15px 25px; font-size: 18px; font-weight: bold; cursor: pointer; border-radius: 8px; border: 2px solid #ef4444; background: white; color: #ef4444;">Red (R)</button>
-                <button class="reaction-btn" data-key="Y" style="padding: 15px 25px; font-size: 18px; font-weight: bold; cursor: pointer; border-radius: 8px; border: 2px solid #eab308; background: white; color: #eab308;">Yellow (Y)</button>
-                <button class="reaction-btn" data-key="G" style="padding: 15px 25px; font-size: 18px; font-weight: bold; cursor: pointer; border-radius: 8px; border: 2px solid #22c55e; background: white; color: #22c55e;">Green (G)</button>
-                <button class="reaction-btn" data-key="B" style="padding: 15px 25px; font-size: 18px; font-weight: bold; cursor: pointer; border-radius: 8px; border: 2px solid #3b82f6; background: white; color: #3b82f6;">Blue (B)</button>
+            <div class="mobile-keyboard-toggle" style="display: flex; justify-content: flex-end; width: 100%; padding-right: 20px; margin-bottom: 15px; position: relative; z-index: 100;">
+                <button id="toggle-keyboard-btn" style="padding: 10px; border-radius: 50%; background: #0052A5; color: white; border: none; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.2); display: flex; align-items: center; justify-content: center; width: 50px; height: 50px;">
+                    <svg id="icon-kbd" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-9 3h2v2h-2V7zm0 3h2v2h-2v-2zM8 7h2v2H8V7zm0 3h2v2H8v-2zm-3 0h2v2H5v-2zm0-3h2v2H5V7zm3 9h8v-2H8v2zm9-3h-2v-2h2v2zm0-3h-2V7h2v2z"/></svg>
+                    <svg id="icon-close-kbd" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" style="display: none;"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
             </div>
+
+            <div class="reaction-buttons-container" style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;">
+                <button class="reaction-btn" data-key="L" style="padding: 10px 15px; font-size: 18px; font-weight: bold; cursor: pointer; border-radius: 8px; border: 2px solid #94a3b8; background: white; color: #475569;">Next (L)</button>
+                <button class="reaction-btn" data-key="R" style="padding: 10px 15px; font-size: 18px; font-weight: bold; cursor: pointer; border-radius: 8px; border: 2px solid #ef4444; background: white; color: #ef4444;">Red (R)</button>
+                <button class="reaction-btn" data-key="Y" style="padding: 10px 15px; font-size: 18px; font-weight: bold; cursor: pointer; border-radius: 8px; border: 2px solid #eab308; background: white; color: #eab308;">Yellow (Y)</button>
+                <button class="reaction-btn" data-key="G" style="padding: 10px 15px; font-size: 18px; font-weight: bold; cursor: pointer; border-radius: 8px; border: 2px solid #22c55e; background: white; color: #22c55e;">Green (G)</button>
+                <button class="reaction-btn" data-key="B" style="padding: 10px 15px; font-size: 18px; font-weight: bold; cursor: pointer; border-radius: 8px; border: 2px solid #3b82f6; background: white; color: #3b82f6;">Blue (B)</button>
+            </div>
+            
+            <input type="text" id="mobile-keyboard-input" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" style="opacity: 0; position: absolute; bottom: 0; left: 0; width: 1px; height: 1px; z-index: -1;">
             <div class="feedback-indicator" id="feedback-indicator"></div>
+
         </div>
 
         <div class="answer-bar" id="answer-bar">
@@ -213,8 +223,8 @@
                 <h1 class="header-title">DMRC/LMRC/NMRC Machine Test</h1>
             </div>
             <div class="header-right">
-                <button id="fullscreen-btn-results" class="btn-fullscreen">Switch Fullscreen</button>
-                <button id="exit-btn-results" class="btn-exit">Exit</button>
+                <button id="fullscreen-btn-results" class="btn-fullscreen"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg><span class="btn-text">Switch Fullscreen</span></button>
+                <button id="exit-btn-results" class="btn-exit"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg><span class="btn-text">Exit</span></button>
             </div>
         </header>
 
@@ -263,8 +273,8 @@
             </div>
             <div class="header-right">
                 <span class="question-counter" id="apt-question-number">Question 1 / 112</span>
-                <button id="apt-fullscreen-btn" class="btn-fullscreen">Switch Fullscreen</button>
-                <button id="apt-exit-btn" class="btn-exit">Exit</button>
+                <button id="apt-fullscreen-btn" class="btn-fullscreen"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg><span class="btn-text">Switch Fullscreen</span></button>
+                <button id="apt-exit-btn" class="btn-exit"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg><span class="btn-text">Exit</span></button>
             </div>
         </header>
 
@@ -324,8 +334,8 @@
                 <h1 class="header-title">DMRC/LMRC/NMRC Aptitude Test — Results</h1>
             </div>
             <div class="header-right">
-                <button id="apt-results-fullscreen-btn" class="btn-fullscreen">Switch Fullscreen</button>
-                <button id="apt-results-exit-btn" class="btn-exit">Exit</button>
+                <button id="apt-results-fullscreen-btn" class="btn-fullscreen"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg><span class="btn-text">Switch Fullscreen</span></button>
+                <button id="apt-results-exit-btn" class="btn-exit"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg><span class="btn-text">Exit</span></button>
             </div>
         </header>
 
@@ -373,8 +383,8 @@
             </div>
             <div class="header-right">
                 <span class="question-counter" id="emb-question-number">Question 1 / 25</span>
-                <button id="emb-fullscreen-btn" class="btn-fullscreen">Switch Fullscreen</button>
-                <button id="emb-exit-btn" class="btn-exit">Exit</button>
+                <button id="emb-fullscreen-btn" class="btn-fullscreen"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg><span class="btn-text">Switch Fullscreen</span></button>
+                <button id="emb-exit-btn" class="btn-exit"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg><span class="btn-text">Exit</span></button>
             </div>
         </header>
 
@@ -400,7 +410,7 @@
                     <!-- Question Image injected here -->
                 </div>
                 
-                <div class="emb-options-grid" style="display: flex; gap: 20px; justify-content: center; width: 100%;">
+                <div class="emb-options-grid" style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; width: 100%;">
                     <button class="emb-option" id="emb-option-1" data-option="1" style="flex: 1; max-width: 150px; padding: 20px; font-size: 24px; font-weight: bold; cursor: pointer; border: 2px solid #e2e8f0; border-radius: 8px; background: white; transition: all 0.2s;">
                         <span class="emb-option-label">(A)</span>
                     </button>
@@ -436,8 +446,8 @@
             </div>
             <div class="header-right">
                 <span class="question-counter" id="form-question-number">Question 1 / 25</span>
-                <button id="form-fullscreen-btn" class="btn-fullscreen">Switch Fullscreen</button>
-                <button id="form-exit-btn" class="btn-exit">Exit</button>
+                <button id="form-fullscreen-btn" class="btn-fullscreen"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg><span class="btn-text">Switch Fullscreen</span></button>
+                <button id="form-exit-btn" class="btn-exit"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg><span class="btn-text">Exit</span></button>
             </div>
         </header>
 
@@ -463,7 +473,7 @@
                     <!-- Question Image injected here -->
                 </div>
                 
-                <div class="form-options-grid" style="display: flex; gap: 20px; justify-content: center; width: 100%;">
+                <div class="form-options-grid" style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; width: 100%;">
                     <button class="form-option" id="form-option-1" data-option="1" style="flex: 1; max-width: 150px; padding: 20px; font-size: 24px; font-weight: bold; cursor: pointer; border: 2px solid #e2e8f0; border-radius: 8px; background: white; transition: all 0.2s;">
                         <span class="form-option-label">(A)</span>
                     </button>
@@ -495,8 +505,8 @@
                 <h1 class="header-title">Embedded Figures — Results</h1>
             </div>
             <div class="header-right">
-                <button id="emb-results-fullscreen-btn" class="btn-fullscreen">Switch Fullscreen</button>
-                <button id="emb-results-exit-btn" class="btn-exit">Exit</button>
+                <button id="emb-results-fullscreen-btn" class="btn-fullscreen"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg><span class="btn-text">Switch Fullscreen</span></button>
+                <button id="emb-results-exit-btn" class="btn-exit"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg><span class="btn-text">Exit</span></button>
             </div>
         </header>
 
@@ -536,8 +546,8 @@
                 <h1 class="header-title">Figure Formation — Results</h1>
             </div>
             <div class="header-right">
-                <button id="form-results-fullscreen-btn" class="btn-fullscreen">Switch Fullscreen</button>
-                <button id="form-results-exit-btn" class="btn-exit">Exit</button>
+                <button id="form-results-fullscreen-btn" class="btn-fullscreen"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg><span class="btn-text">Switch Fullscreen</span></button>
+                <button id="form-results-exit-btn" class="btn-exit"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg><span class="btn-text">Exit</span></button>
             </div>
         </header>
 
