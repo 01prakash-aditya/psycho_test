@@ -80,7 +80,7 @@
             // Avoid too many same colors in a row (max 2)
             do {
                 color = SIGNAL_COLORS[Math.floor(Math.random() * SIGNAL_COLORS.length)];
-            } while (color === lastColor && Math.random() < 0.6);
+            } while (color === lastColor);
 
             queue.push({
                 color: color
@@ -211,7 +211,7 @@
         testState.queueIndex++;
 
         // INSTANTLY hide old image to prevent flash
-        elements.signalBox.style.backgroundColor = COLOR_HEX[signal.color];
+        elements.signalBox.src = 'color_' + signal.color.toLowerCase() + '.png';
         elements.signalBox.style.display = 'block';
 
         testState.signalShownAt = performance.now();

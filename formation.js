@@ -67,7 +67,7 @@
     wireButton('form-fullscreen-btn', toggleFullscreen);
     wireButton('form-exit-btn', exitTest);
     wireButton('form-results-fullscreen-btn', toggleFullscreen);
-    wireButton('form-results-exit-btn', exitTest);
+    wireButton('form-results-exit-btn', resetTest);
 
     // option clicks
     for (var i = 1; i <= 4; i++) {

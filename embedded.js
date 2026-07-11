@@ -218,7 +218,7 @@
     wireButton('emb-fullscreen-btn', toggleFullscreen);
     wireButton('emb-exit-btn', exitTest);
     wireButton('emb-results-fullscreen-btn', toggleFullscreen);
-    wireButton('emb-results-exit-btn', exitTest);
+    wireButton('emb-results-exit-btn', resetTest);
 
     // option clicks
     for (var i = 1; i <= 4; i++) {
